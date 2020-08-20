@@ -15,6 +15,10 @@ public class dataService {
     @Autowired
     dataDao dao;
 
+    public Data save(Data dto) {
+        return dao.save(dto);
+    }
+
     public Optional<Data> findById(int id) {
         return dao.findById(id);
     }
@@ -25,5 +29,17 @@ public class dataService {
 
     public List<Data> findAll() {
         return dao.findAll();
+    }
+
+    public Data update(Data dto) {
+        return dao.update(dto);
+    }
+
+    public void deleteById(int id){
+        dao.deleteById(id);
+    }
+
+    public void deleteByData(String data){
+        dao.deleteByData(data);
     }
 }
