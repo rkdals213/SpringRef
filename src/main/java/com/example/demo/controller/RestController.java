@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" })
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping("/")
+@RequestMapping("/data")
 public class RestController {
 
 	static Logger logger = LoggerFactory.getLogger(RestController.class);
