@@ -16,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
+@NamedEntityGraph(name = "TeamWithMember", attributeNodes = @NamedAttributeNode("members"))
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +24,13 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy = "team")
-//    @JsonManagedReference
+    @JsonManagedReference
 //    @JsonBackReference
     private Set<Member> members = new HashSet<>();
+
+    public void addMember(Member member){
+        member.setTeam(this);
+        this.members.add(member);
+    }
 
 }

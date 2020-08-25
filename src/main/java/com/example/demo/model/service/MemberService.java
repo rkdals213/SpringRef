@@ -19,7 +19,11 @@ public class MemberService {
     MemberRepo repo;
 
     public List<Member> findAll() {
-//        return repo.findAll();
-        return dao.findAll();
+        return repo.findAll();
+//        return dao.findAll();
+    }
+
+    public Member addMember(Member member){
+        return repo.save(member);
     }
 }

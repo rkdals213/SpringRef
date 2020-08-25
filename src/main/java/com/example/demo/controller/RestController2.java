@@ -68,16 +68,18 @@ public class RestController2 {
 
 	@PostMapping("/addMember")
 	@ApiOperation(value = "findAll")
-	public ResponseEntity<Map<String, Object>> addMember(HttpServletResponse res, HttpServletRequest req){
+	public ResponseEntity<Map<String, Object>> addMember(HttpServletResponse res, HttpServletRequest req, @RequestBody Member member){
 		logger.debug("findAll");
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> result = new HashMap<>();
 		try {
+			System.out.println(member.getTeam().getName());
+//			Team team = tService.findById(member.getTeam().getId());
+			Team team = tService.findByName(member.getTeam().getName());
+			team.addMember(member);
 
-
-
-			List<Member> members = mService.findAll();
-			result.put("result", members);
+			Member mem = mService.addMember(member);
+			result.put("result", mem);
 			entity = handleSuccess(result);
 		} catch (RuntimeException e) {
 			entity = handleException(e);
