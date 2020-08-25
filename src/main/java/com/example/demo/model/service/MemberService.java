@@ -26,4 +26,8 @@ public class MemberService {
     public Member addMember(Member member){
         return repo.save(member);
     }
+
+    public void deleteById(int id){
+        repo.deleteById(id);
+    }
 }

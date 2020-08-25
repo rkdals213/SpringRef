@@ -4,6 +4,7 @@ import com.example.demo.model.dto.Member;
 import com.example.demo.model.dto.Team;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface TeamRepo extends JpaRepository<Team, String> {
 
     Team findById(int team_id);
     Team findByName(String name);
+
+    void deleteById(int team_id);
 }

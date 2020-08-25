@@ -35,7 +35,7 @@ public class RestController2 {
 	MemberService mService;
 
 	@PostMapping("/findAllTeam")
-	@ApiOperation(value = "findAll")
+	@ApiOperation(value = "findAllTeam")
 	public ResponseEntity<Map<String, Object>> findAllTeam(HttpServletResponse res, HttpServletRequest req){
 		logger.debug("findAll");
 		ResponseEntity<Map<String, Object>> entity = null;
@@ -51,7 +51,7 @@ public class RestController2 {
 	}
 
 	@PostMapping("/findAllMember")
-	@ApiOperation(value = "findAll")
+	@ApiOperation(value = "findAllMember")
 	public ResponseEntity<Map<String, Object>> findAllMember(HttpServletResponse res, HttpServletRequest req){
 		logger.debug("findAll");
 		ResponseEntity<Map<String, Object>> entity = null;
@@ -67,19 +67,50 @@ public class RestController2 {
 	}
 
 	@PostMapping("/addMember")
-	@ApiOperation(value = "findAll")
+	@ApiOperation(value = "addMember")
 	public ResponseEntity<Map<String, Object>> addMember(HttpServletResponse res, HttpServletRequest req, @RequestBody Member member){
 		logger.debug("findAll");
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> result = new HashMap<>();
 		try {
+			System.out.println(member.getTeam().getId());
 			System.out.println(member.getTeam().getName());
-//			Team team = tService.findById(member.getTeam().getId());
-			Team team = tService.findByName(member.getTeam().getName());
+			Team team = tService.findById(member.getTeam().getId());
+//			Team team = tService.findByName(member.getTeam().getName());
 			team.addMember(member);
 
 			Member mem = mService.addMember(member);
 			result.put("result", mem);
+			entity = handleSuccess(result);
+		} catch (RuntimeException e) {
+			entity = handleException(e);
+		}
+		return entity;
+	}
+
+	@DeleteMapping("/dropTeam/{team_id}")
+	@ApiOperation(value = "dropTeam")
+	public ResponseEntity<Map<String, Object>> dropTeam(HttpServletResponse res, HttpServletRequest req, @PathVariable int team_id){
+		logger.debug("findAll");
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> result = new HashMap<>();
+		try {
+			tService.deleteById(team_id);
+			entity = handleSuccess(result);
+		} catch (RuntimeException e) {
+			entity = handleException(e);
+		}
+		return entity;
+	}
+
+	@DeleteMapping("/dropMember/{member_id}")
+	@ApiOperation(value = "dropTeam")
+	public ResponseEntity<Map<String, Object>> dropMember(HttpServletResponse res, HttpServletRequest req, @PathVariable int member_id){
+		logger.debug("dropMember");
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> result = new HashMap<>();
+		try {
+			mService.deleteById(member_id);
 			entity = handleSuccess(result);
 		} catch (RuntimeException e) {
 			entity = handleException(e);

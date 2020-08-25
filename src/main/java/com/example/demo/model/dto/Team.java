@@ -15,15 +15,14 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 @NamedEntityGraph(name = "TeamWithMember", attributeNodes = @NamedAttributeNode("members"))
 public class Team {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     @JsonManagedReference
 //    @JsonBackReference
     private Set<Member> members = new HashSet<>();

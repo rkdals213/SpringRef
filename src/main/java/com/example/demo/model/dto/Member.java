@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 @NamedEntityGraph(name = "MemberWithTeam", attributeNodes = @NamedAttributeNode("team"))
 public class Member {
     @Id
@@ -25,5 +25,4 @@ public class Member {
 //    @JsonManagedReference
     @JsonBackReference
     private Team team;
-
 }

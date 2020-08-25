@@ -12,4 +12,6 @@ public interface MemberRepo extends JpaRepository<Member, String> {
 
     @EntityGraph("MemberWithTeam")
     List<Member> findAll();
+
+    void deleteById(int id);
 }
