@@ -7,6 +7,7 @@ import com.example.demo.model.dto.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PreRemove;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,15 @@ public class TeamService {
     }
 
     public void deleteById(int team_id){
+      preRemove(team_id);
         repo.deleteById(team_id);
+    }
+
+    @PreRemove
+    public void preRemove(int team_id){
+        Set<Member> list = repo.findById(team_id).getMembers();
+        for (Member mem: list) {
+            mem.setTeam(null);
+        }
     }
 }

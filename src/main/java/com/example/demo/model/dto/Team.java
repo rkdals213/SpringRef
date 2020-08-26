@@ -6,11 +6,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -23,6 +21,7 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "team")
     @JsonManagedReference
 //    @JsonBackReference
     private Set<Member> members = new HashSet<>();
