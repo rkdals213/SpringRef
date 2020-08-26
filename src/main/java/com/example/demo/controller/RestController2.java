@@ -118,6 +118,23 @@ public class RestController2 {
 		return entity;
 	}
 
+	@PutMapping("/changeTeam/{member_id}/{to_team_id}")
+	@ApiOperation(value = "changeTeam")
+	public ResponseEntity<Map<String, Object>> changeTeam(HttpServletResponse res, HttpServletRequest req, @PathVariable int member_id, @PathVariable int to_team_id){
+		logger.debug("changeTeam");
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> result = new HashMap<>();
+		try {
+			mService.changeTeam(member_id,to_team_id);
+			entity = handleSuccess(result);
+		} catch (RuntimeException e) {
+			entity = handleException(e);
+		}
+		return entity;
+	}
+
+
+
 	private ResponseEntity<Map<String, Object>> handleSuccess(Map<String, Object> data) {
 		data.put("status", true);
 		return new ResponseEntity<Map<String, Object>>(data, HttpStatus.OK);

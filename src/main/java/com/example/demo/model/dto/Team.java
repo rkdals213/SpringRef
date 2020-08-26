@@ -1,14 +1,12 @@
 package com.example.demo.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,8 +18,8 @@ public class Team {
     private int id;
     private String name;
 
+    //    @OneToMany(mappedBy = "team")
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-//    @OneToMany(mappedBy = "team")
     @JsonManagedReference
 //    @JsonBackReference
     private Set<Member> members = new HashSet<>();

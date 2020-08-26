@@ -14,4 +14,6 @@ public interface MemberRepo extends JpaRepository<Member, String> {
     List<Member> findAll();
 
     void deleteById(int id);
+
+    Member findById(int member_id);
 }
